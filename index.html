@@ -1,1 +1,2258 @@
-පොන්නයා
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sasi Ra*e | Video Edition</title>
+    <style>
+        /* =============================================
+                   🎨 NEON DARK THEME
+                   ============================================= */
+        
+        /* ===== CSS Variables ===== */
+        :root {
+            --neon-gold: #ffd700;
+            --neon-orange: #f7971e;
+            --neon-cyan: #00f0ff;
+            --neon-pink: #ff0080;
+            --neon-purple: #7d3cff;
+            --neon-green: #00ff88;
+            --neon-red: #ff0040;
+            
+            --bg-primary: #0a0a12;
+            --bg-secondary: #12121e;
+            --bg-card: rgba(255, 255, 255, 0.02);
+            --text-primary: #ffffff;
+            --text-secondary: #8888aa;
+            --border-color: rgba(255, 215, 0, 0.08);
+            --shadow-neon: 0 0 30px rgba(255, 215, 0, 0.05);
+            --radius: 24px;
+            --transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* ===== Reset ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none !important;
+            -webkit-user-select: none !important;
+            user-select: none !important;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg-primary);
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            position: relative;
+        }
+
+        /* =============================================
+                   ✨ NEON BACKGROUND
+                   ============================================= */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* =============================================
+                   🏠 MAIN CONTAINER
+                   ============================================= */
+        .main-container {
+            width: 100%;
+            height: 100vh;
+            max-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: rgba(10, 10, 18, 0.92);
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 215, 0, 0.04);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 215, 0, 0.02);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            animation: containerIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes containerIn {
+            0% { opacity: 0; transform: scale(0.95) rotateX(3deg); }
+            100% { opacity: 1; transform: scale(1) rotateX(0deg); }
+        }
+
+        /* =============================================
+                   🌟 NEON GLOW ORBS
+                   ============================================= */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+            animation: orbFloat 25s ease-in-out infinite alternate;
+        }
+
+        .glow-orb.orb-1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 215, 0, 0.04);
+            top: -150px;
+            right: -150px;
+            animation-delay: 0s;
+        }
+        .glow-orb.orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(0, 240, 255, 0.03);
+            bottom: -120px;
+            left: -120px;
+            animation-delay: -8s;
+        }
+        .glow-orb.orb-3 {
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 0, 128, 0.02);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -16s;
+        }
+
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            33% { transform: translate(40px, -50px) scale(1.15) rotate(5deg); }
+            66% { transform: translate(-30px, 40px) scale(0.85) rotate(-3deg); }
+            100% { transform: translate(20px, -30px) scale(1.05) rotate(2deg); }
+        }
+
+        /* =============================================
+                   🔐 NEON LOGIN PAGE
+                   ============================================= */
+        .login-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 18, 0.96);
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.8s ease, visibility 0.8s ease, backdrop-filter 0.8s ease;
+        }
+
+        .login-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+        }
+
+        .login-box {
+            background: rgba(10, 10, 18, 0.8);
+            border: 2px solid rgba(255, 215, 0, 0.1);
+            border-radius: 40px;
+            padding: 50px 45px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 40px 120px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 215, 0, 0.02);
+            position: relative;
+            overflow: hidden;
+            animation: loginNeon 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            transform: translateY(40px) scale(0.95);
+            opacity: 0;
+        }
+
+        @keyframes loginNeon {
+            0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .login-box::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 40px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--neon-gold), var(--neon-cyan), var(--neon-pink), var(--neon-gold));
+            background-size: 300% 300%;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: borderGlow 4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .login-box .lock-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 6px;
+            z-index: 1;
+        }
+
+        .login-box .lock-icon {
+            font-size: 64px;
+            display: block;
+            animation: lockNeon 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.1));
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes lockNeon {
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+            25% { transform: translateY(-8px) rotate(-3deg) scale(1.02); }
+            75% { transform: translateY(-8px) rotate(3deg) scale(1.02); }
+        }
+
+        .login-box .lock-ring {
+            position: absolute;
+            inset: -14px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.04);
+            animation: ringNeon 2.5s ease-in-out infinite;
+        }
+
+        @keyframes ringNeon {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .login-box h2 {
+            color: var(--text-primary);
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-box h2 .highlight {
+            background: linear-gradient(135deg, var(--neon-gold), var(--neon-cyan), var(--neon-pink));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textNeon 4s ease-in-out infinite;
+        }
+
+        @keyframes textNeon {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .login-box .sub {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 28px;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-box .input-group {
+            position: relative;
+            margin-bottom: 14px;
+            z-index: 1;
+        }
+
+        .login-box .input-group .input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #444;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .login-box input[type="password"] {
+            width: 100%;
+            padding: 16px 20px 16px 50px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 215, 0, 0.06);
+            background: rgba(255, 255, 255, 0.02);
+            color: #fff;
+            font-size: 18px;
+            outline: none;
+            transition: all 0.4s ease;
+            letter-spacing: 4px;
+            font-weight: 600;
+        }
+
+        .login-box input[type="password"]:focus {
+            border-color: var(--neon-gold);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.04);
+            transform: scale(1.01);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .login-box input[type="password"]:focus ~ .input-icon {
+            color: var(--neon-gold);
+        }
+
+        .login-box input[type="password"]::placeholder {
+            color: #444;
+            letter-spacing: 2px;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .login-box .password-strength {
+            height: 2px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 2px;
+            margin-top: -6px;
+            margin-bottom: 14px;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            position: relative;
+        }
+
+        .login-box .password-strength.active {
+            opacity: 1;
+        }
+
+        .login-box .password-strength .bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 2px;
+            transition: width 0.5s ease, background 0.5s ease;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 18px;
+            background: linear-gradient(135deg, var(--neon-gold), var(--neon-cyan));
+            background-size: 200% 200%;
+            color: #0a0a12;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            animation: btnNeon 3s ease-in-out infinite;
+        }
+
+        @keyframes btnNeon {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .login-box button .btn-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-box button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+            transform: scale(0);
+            transition: transform 0.6s ease;
+        }
+
+        .login-box button:hover::before {
+            transform: scale(1);
+        }
+
+        .login-box button:hover {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 12px 50px rgba(255, 215, 0, 0.2);
+        }
+
+        .login-box button:active {
+            transform: scale(0.97);
+        }
+
+        .login-box .error {
+            color: var(--neon-red);
+            font-size: 14px;
+            margin-top: 12px;
+            min-height: 22px;
+            font-weight: 500;
+            animation: errorNeon 0.4s ease;
+            z-index: 1;
+            position: relative;
+            text-shadow: 0 0 20px rgba(255, 0, 64, 0.2);
+        }
+
+        @keyframes errorNeon {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-6px); }
+            80% { transform: translateX(6px); }
+        }
+
+        /* =============================================
+                   🏠 SITE CONTENT
+                   ============================================= */
+        .site-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            padding: 10px 14px 10px 14px;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+            animation: contentFade 0.8s ease-out;
+        }
+
+        @keyframes contentFade {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== Header ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 12px 8px 12px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.03);
+            flex-shrink: 0;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .logo-icon {
+            font-size: 26px;
+            animation: logoSpin 20s linear infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.05));
+        }
+
+        @keyframes logoSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.05); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .logo h1 {
+            font-size: 20px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-gold), var(--neon-cyan), var(--neon-pink));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textNeon 4s ease-in-out infinite;
+            letter-spacing: -0.3px;
+        }
+
+        .logo .version {
+            font-size: 10px;
+            color: #444;
+            -webkit-text-fill-color: #444;
+            background: none;
+            font-weight: 400;
+            margin-left: 2px;
+        }
+
+        /* ===== Clock ===== */
+        .clock-container {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 4px 14px 4px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 215, 0, 0.04);
+        }
+
+        .clock-container .clock-time {
+            color: var(--neon-cyan);
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-variant-numeric: tabular-nums;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.05);
+        }
+
+        .clock-container .clock-date {
+            color: #555;
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            border-left: 1px solid rgba(255, 255, 255, 0.04);
+            padding-left: 12px;
+        }
+
+        .clock-container .clock-date .day {
+            color: var(--neon-gold);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge {
+            background: rgba(255, 215, 0, 0.04);
+            padding: 4px 12px;
+            border-radius: 50px;
+            color: var(--neon-gold);
+            font-size: 9px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 215, 0, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            animation: badgeNeon 2s ease-in-out infinite;
+        }
+
+        @keyframes badgeNeon {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0); }
+            50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.03); }
+        }
+
+        .badge .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            animation: dotNeon 1.2s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+        }
+
+        @keyframes dotNeon {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 3px 8px 3px 12px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 215, 0, 0.03);
+        }
+
+        .audio-label {
+            color: #444;
+            font-size: 9px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .audio-volume {
+            width: 40px;
+            height: 2px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .audio-volume::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 215, 0, 0.03);
+            color: #555;
+            padding: 4px 12px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 10px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .logout-btn:hover {
+            border-color: var(--neon-red);
+            color: var(--neon-red);
+            transform: scale(1.03);
+            box-shadow: 0 0 30px rgba(255, 0, 64, 0.05);
+        }
+
+        .logout-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* =============================================
+                   📑 MULTI-SITE TABS
+                   ============================================= */
+        .tabs-container {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 4px 0 4px;
+            flex-shrink: 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.02);
+        }
+
+        .tabs-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px 6px 14px;
+            border-radius: 12px 12px 0 0;
+            background: rgba(255, 255, 255, 0.02);
+            color: #666;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            border-bottom: none;
+            white-space: nowrap;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .tab-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: #aaa;
+        }
+
+        .tab-item.active {
+            background: rgba(255, 215, 0, 0.04);
+            color: var(--neon-gold);
+            border-color: rgba(255, 215, 0, 0.06);
+            box-shadow: 0 -1px 20px rgba(255, 215, 0, 0.02);
+        }
+
+        .tab-item .tab-icon {
+            font-size: 13px;
+        }
+
+        .tab-item .tab-close {
+            background: none;
+            border: none;
+            color: #444;
+            font-size: 10px;
+            cursor: pointer;
+            padding: 0 2px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+
+        .tab-item .tab-close:hover {
+            color: var(--neon-red);
+            background: rgba(255, 0, 64, 0.05);
+        }
+
+        .tab-add-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 215, 0, 0.04);
+            background: rgba(255, 255, 255, 0.02);
+            color: #555;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .tab-add-btn:hover {
+            border-color: var(--neon-gold);
+            color: var(--neon-gold);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.03);
+        }
+
+        /* =============================================
+                   📺 IFRAME
+                   ============================================= */
+        .iframe-wrapper {
+            flex: 1;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #08080e;
+            border: 1px solid rgba(255, 215, 0, 0.03);
+            min-height: 0;
+            position: relative;
+            transition: border-color 0.4s ease;
+        }
+
+        .iframe-wrapper:hover {
+            border-color: rgba(255, 215, 0, 0.05);
+        }
+
+        .iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 16px;
+        }
+
+        /* ===== Iframe Loader ===== */
+        .iframe-loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(8, 8, 14, 0.92);
+            backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            z-index: 3;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .iframe-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .iframe-loader .loader-ring {
+            width: 44px;
+            height: 44px;
+            border: 3px solid rgba(255, 215, 0, 0.03);
+            border-top: 3px solid var(--neon-cyan);
+            border-radius: 50%;
+            animation: spin 0.8s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.02);
+        }
+
+        .iframe-loader .loader-text {
+            color: #444;
+            font-size: 11px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .iframe-loader .loader-text span {
+            color: var(--neon-cyan);
+        }
+
+        /* ===== Overlay ===== */
+        .iframe-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            background: transparent;
+            pointer-events: none;
+            cursor: default;
+        }
+
+        /* =============================================
+                   🛡️ AUTO-LOCK OVERLAY
+                   ============================================= */
+        .auto-lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 18, 0.96);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            z-index: 500;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: lockFadeIn 0.6s ease;
+        }
+
+        .auto-lock-overlay.show {
+            display: flex;
+        }
+
+        @keyframes lockFadeIn {
+            0% { opacity: 0; backdrop-filter: blur(0px); }
+            100% { opacity: 1; backdrop-filter: blur(40px); }
+        }
+
+        .auto-lock-box {
+            text-align: center;
+            max-width: 380px;
+            width: 90%;
+            padding: 40px 30px;
+        }
+
+        .auto-lock-box .lock-icon-big {
+            font-size: 56px;
+            display: block;
+            margin-bottom: 12px;
+            animation: lockNeon 3s ease-in-out infinite;
+        }
+
+        .auto-lock-box h2 {
+            color: var(--text-primary);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .auto-lock-box h2 .highlight {
+            color: var(--neon-cyan);
+        }
+
+        .auto-lock-box p {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .auto-lock-box input[type="password"] {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 215, 0, 0.06);
+            background: rgba(255, 255, 255, 0.02);
+            color: #fff;
+            font-size: 18px;
+            outline: none;
+            transition: all 0.4s ease;
+            letter-spacing: 4px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        .auto-lock-box input[type="password"]:focus {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.04);
+        }
+
+        .auto-lock-box input[type="password"]::placeholder {
+            color: #444;
+            letter-spacing: 2px;
+            font-size: 14px;
+        }
+
+        .auto-lock-box button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .auto-lock-box button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 240, 255, 0.15);
+        }
+
+        .auto-lock-box .lock-error {
+            color: var(--neon-red);
+            font-size: 13px;
+            margin-top: 10px;
+            min-height: 20px;
+        }
+
+        .auto-lock-box .lock-timer {
+            color: #444;
+            font-size: 12px;
+            margin-bottom: 16px;
+        }
+
+        .auto-lock-box .lock-timer span {
+            color: var(--neon-gold);
+            font-weight: 700;
+        }
+
+        /* =============================================
+                   📱 TELEGRAM POPUP
+                   ============================================= */
+        .telegram-popup {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            z-index: 9998;
+            background: rgba(12, 12, 24, 0.96);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 215, 0, 0.04);
+            border-radius: 18px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            animation: popupSlide 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            transform: translateY(30px) scale(0.9);
+            opacity: 0;
+            max-width: 280px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .telegram-popup:hover {
+            transform: translateY(-2px) scale(1.02);
+            border-color: rgba(255, 215, 0, 0.06);
+        }
+
+        @keyframes popupSlide {
+            0% { opacity: 0; transform: translateY(30px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .telegram-popup .popup-icon {
+            font-size: 30px;
+            flex-shrink: 0;
+            animation: iconPulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.08) rotate(-3deg); }
+        }
+
+        .telegram-popup .popup-content {
+            flex: 1;
+        }
+
+        .telegram-popup .popup-title {
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .telegram-popup .popup-title .highlight {
+            color: var(--neon-gold);
+        }
+
+        .telegram-popup .popup-desc {
+            color: #666;
+            font-size: 10px;
+            margin-top: 1px;
+        }
+
+        .telegram-popup .popup-close {
+            background: rgba(255, 255, 255, 0.03);
+            border: none;
+            color: #444;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 3px 6px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+
+        .telegram-popup .popup-close:hover {
+            color: var(--neon-red);
+            background: rgba(255, 0, 64, 0.04);
+        }
+
+        .telegram-popup .popup-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--neon-red);
+            color: #fff;
+            font-size: 7px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 20px;
+            animation: badgeNeon2 1.5s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(255, 0, 64, 0.2);
+        }
+
+        @keyframes badgeNeon2 {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        /* =============================================
+                   📋 TOAST
+                   ============================================= */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 300px;
+            width: 100%;
+        }
+
+        .toast {
+            background: rgba(12, 12, 24, 0.96);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.04);
+            border-radius: 14px;
+            padding: 12px 16px;
+            color: #fff;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastSlide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            transform: translateX(-60px);
+            opacity: 0;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .toast.out {
+            animation: toastOut 0.4s ease forwards;
+        }
+
+        @keyframes toastSlide {
+            0% { opacity: 0; transform: translateX(-60px) scale(0.95); }
+            100% { opacity: 1; transform: translateX(0) scale(1); }
+        }
+
+        @keyframes toastOut {
+            0% { opacity: 1; transform: translateX(0) scale(1); }
+            100% { opacity: 0; transform: translateX(-60px) scale(0.95); }
+        }
+
+        .toast .toast-icon { font-size: 17px; flex-shrink: 0; }
+        .toast .toast-content { flex: 1; }
+        .toast .toast-title { font-weight: 600; font-size: 12px; }
+        .toast .toast-desc { color: #777; font-size: 10px; margin-top: 1px; }
+
+        .toast.success { border-color: rgba(0, 255, 136, 0.08); }
+        .toast.success .toast-icon { color: var(--neon-green); }
+        .toast.error { border-color: rgba(255, 0, 64, 0.08); }
+        .toast.error .toast-icon { color: var(--neon-red); }
+        .toast.info { border-color: rgba(0, 240, 255, 0.08); }
+        .toast.info .toast-icon { color: var(--neon-cyan); }
+
+        /* =============================================
+                   📱 FOOTER
+                   ============================================= */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 12px 2px 12px;
+            border-top: 1px solid rgba(255, 215, 0, 0.02);
+            color: #333;
+            font-size: 9px;
+            flex-shrink: 0;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .footer .info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #333;
+        }
+
+        .footer .info .item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.3s ease;
+        }
+
+        .footer .info .item:hover { color: #555; }
+        .footer .divider { color: #1a1a2a; }
+
+        /* =============================================
+                   📱 RESPONSIVE
+                   ============================================= */
+        @media (max-width: 768px) {
+            body { padding: 6px; }
+            .login-box { padding: 35px 25px; border-radius: 30px; }
+            .login-box h2 { font-size: 24px; }
+            .login-box .lock-icon { font-size: 48px; }
+            .site-content { padding: 6px 8px; gap: 6px; }
+            .logo h1 { font-size: 17px; }
+            .logo-icon { font-size: 20px; }
+            .clock-container { padding: 3px 10px 3px 12px; }
+            .clock-container .clock-time { font-size: 13px; }
+            .clock-container .clock-date { font-size: 9px; padding-left: 8px; }
+            .badge { font-size: 8px; padding: 3px 8px; }
+            .audio-controls { padding: 2px 6px 2px 8px; }
+            .audio-volume { width: 30px; }
+            .audio-label { display: none; }
+            .logout-btn { font-size: 9px; padding: 3px 8px; }
+            .tab-item { font-size: 10px; padding: 4px 10px; }
+            .tab-item .tab-icon { font-size: 11px; }
+            .tab-add-btn { width: 20px; height: 20px; font-size: 12px; }
+            .telegram-popup { bottom: 60px; right: 10px; padding: 10px 12px; max-width: 220px; }
+            .telegram-popup .popup-icon { font-size: 24px; }
+            .toast-container { bottom: 10px; left: 10px; max-width: 240px; }
+            .auto-lock-box { padding: 30px 20px; }
+            .auto-lock-box h2 { font-size: 20px; }
+            .auto-lock-box .lock-icon-big { font-size: 44px; }
+            .glow-orb.orb-1 { width: 250px; height: 250px; }
+            .glow-orb.orb-2 { width: 200px; height: 200px; }
+            .glow-orb.orb-3 { width: 150px; height: 150px; }
+        }
+
+        @media (max-width: 400px) {
+            body { padding: 4px; }
+            .login-box { padding: 25px 16px; border-radius: 24px; }
+            .login-box h2 { font-size: 20px; }
+            .login-box input[type="password"] { font-size: 16px; padding: 13px 12px 13px 42px; }
+            .login-box .input-group .input-icon { left: 14px; font-size: 15px; }
+            .logo h1 { font-size: 14px; }
+            .logo .version { display: none; }
+            .logo-icon { font-size: 17px; }
+            .clock-container .clock-time { font-size: 11px; }
+            .clock-container .clock-date { display: none; }
+            .site-content { padding: 4px 4px; gap: 4px; }
+            .header { padding: 4px 6px 6px 6px; gap: 6px; }
+            .header-right { gap: 4px; }
+            .badge { font-size: 7px; padding: 2px 6px; }
+            .audio-controls { padding: 2px 4px; }
+            .audio-volume { width: 20px; }
+            .logout-btn { font-size: 8px; padding: 2px 6px; }
+            .tab-item { font-size: 9px; padding: 3px 8px; }
+            .tab-item .tab-icon { font-size: 10px; }
+            .tab-item .tab-close { font-size: 8px; }
+            .tab-add-btn { width: 18px; height: 18px; font-size: 10px; }
+            .telegram-popup { bottom: 50px; right: 6px; padding: 8px 10px; max-width: 180px; }
+            .telegram-popup .popup-icon { font-size: 20px; }
+            .telegram-popup .popup-title { font-size: 10px; }
+            .telegram-popup .popup-desc { font-size: 9px; }
+            .toast-container { bottom: 6px; left: 6px; max-width: 200px; }
+            .toast { padding: 8px 12px; font-size: 11px; }
+            .footer { font-size: 8px; padding: 2px 6px; }
+            .footer .info { gap: 4px; }
+            .auto-lock-box { padding: 20px 16px; }
+            .auto-lock-box h2 { font-size: 18px; }
+            .auto-lock-box .lock-icon-big { font-size: 36px; }
+            .auto-lock-box input[type="password"] { font-size: 16px; padding: 12px 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- =============================================
+    📁 LOAD FILES
+    ============================================= -->
+    <script>
+        let SITE_URL = 'https://deepseek.com';
+        let VALID_PASSWORDS = ['sasi123'];
+        let MAIN_PASSWORD = 'sasi123';
+
+        async function loadLink() {
+            try {
+                const res = await fetch('link.txt');
+                if (res.ok) {
+                    const text = await res.text();
+                    const url = text.trim();
+                    if (url.startsWith('http://') || url.startsWith('https://')) {
+                        SITE_URL = url;
+                    }
+                }
+            } catch(e) {}
+        }
+
+        async function loadPasswords() {
+            try {
+                const res = await fetch('password.txt');
+                if (res.ok) {
+                    const text = await res.text();
+                    const passwords = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                    if (passwords.length > 0) {
+                        VALID_PASSWORDS = passwords;
+                        MAIN_PASSWORD = passwords[0];
+                    }
+                }
+            } catch(e) {}
+        }
+    </script>
+
+    <!-- =============================================
+    ✨ 3D NEON BACKGROUND
+    ============================================= -->
+    <script>
+        (function createNeonBackground() {
+            const canvas = document.createElement('canvas');
+            canvas.id = 'bg-canvas';
+            document.body.prepend(canvas);
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            let mouseX = 0, mouseY = 0;
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2.5 + 0.3;
+                    this.speedX = (Math.random() - 0.5) * 0.15;
+                    this.speedY = (Math.random() - 0.5) * 0.15;
+                    this.opacity = Math.random() * 0.5 + 0.05;
+                    this.pulseSpeed = Math.random() * 0.02 + 0.005;
+                    this.pulsePhase = Math.random() * Math.PI * 2;
+                    this.hue = Math.random() * 60 + 40;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.pulsePhase += this.pulseSpeed;
+                    
+                    const dx = mouseX - this.x;
+                    const dy = mouseY - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 200) {
+                        const force = (200 - dist) / 200 * 0.025;
+                        this.x += dx * force;
+                        this.y += dy * force;
+                    }
+                    
+                    if (this.x < 0 || this.x > width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > height) this.speedY *= -1;
+                }
+                draw() {
+                    const pulse = Math.sin(this.pulsePhase) * 0.3 + 0.7;
+                    const alpha = this.opacity * pulse;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 215, 0, ${alpha})`;
+                    ctx.shadowColor = `rgba(255, 215, 0, ${alpha * 0.2})`;
+                    ctx.shadowBlur = 10;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle());
+            }
+
+            function drawConnections() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 80) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            const alpha = 0.03 * (1 - dist / 80);
+                            ctx.strokeStyle = `rgba(255, 215, 0, ${alpha})`;
+                            ctx.lineWidth = 0.3;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(s => { s.update(); s.draw(); });
+                drawConnections();
+                requestAnimationFrame(animate);
+            }
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            document.addEventListener('touchmove', (e) => {
+                if (e.touches.length > 0) {
+                    mouseX = e.touches[0].clientX;
+                    mouseY = e.touches[0].clientY;
+                }
+            }, { passive: true });
+
+            animate();
+        })();
+    </script>
+
+    <!-- =============================================
+    🎵 AUDIO SYSTEM
+    ============================================= -->
+    <script>
+        class AudioSystem {
+            constructor() {
+                this.ctx = null;
+                this.volume = 0.3;
+                this.audioElement = null;
+                try {
+                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                } catch(e) {}
+                try {
+                    this.audioElement = new Audio('ah.mp3');
+                    this.audioElement.preload = 'auto';
+                    this.audioElement.volume = this.volume;
+                } catch(e) {}
+            }
+
+            playAhh() {
+                try {
+                    if (this.audioElement) {
+                        this.audioElement.currentTime = 0;
+                        this.audioElement.volume = this.volume;
+                        this.audioElement.play().catch(() => {});
+                    }
+                } catch(e) {}
+            }
+
+            error() {
+                if (!this.ctx) return;
+                try {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.value = 280;
+                    gain.gain.value = this.volume * 0.4;
+                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.2);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + 0.2);
+                } catch(e) {}
+            }
+
+            click() {
+                if (!this.ctx) return;
+                try {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.value = 1100;
+                    gain.gain.value = this.volume * 0.25;
+                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.04);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + 0.04);
+                } catch(e) {}
+            }
+
+            logout() {
+                if (!this.ctx) return;
+                try {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.value = 480;
+                    gain.gain.value = this.volume * 0.3;
+                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.2);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + 0.2);
+                } catch(e) {}
+            }
+
+            type() {
+                if (!this.ctx) return;
+                try {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.value = 550 + Math.random() * 350;
+                    gain.gain.value = this.volume * 0.1;
+                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.02);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + 0.02);
+                } catch(e) {}
+            }
+
+            setVolume(val) {
+                this.volume = Math.max(0, Math.min(1, val));
+                if (this.audioElement) this.audioElement.volume = this.volume;
+            }
+        }
+
+        const audio = new AudioSystem();
+    </script>
+
+    <!-- =============================================
+    🏠 MAIN CONTAINER
+    ============================================= -->
+    <div class="main-container">
+
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+
+        <!-- ===== LOGIN ===== -->
+        <div class="login-overlay" id="loginOverlay">
+            <div class="login-box">
+                <div class="lock-wrapper">
+                    <span class="lock-icon">🔐</span>
+                    <div class="lock-ring"></div>
+                </div>
+                <h2>Welcome to <span class="highlight">Sasi Ra*e</span></h2>
+                <p class="sub">Enter your password to continue</p>
+                <div class="input-group">
+                    <span class="input-icon">🔑</span>
+                    <input type="password" id="passwordInput" placeholder="Enter password" autofocus>
+                </div>
+                <div class="password-strength" id="strengthBar">
+                    <div class="bar" id="strengthFill"></div>
+                </div>
+                <button onclick="checkPassword()">
+                    <span class="btn-content">Unlock <span style="font-size:20px;">🚀</span></span>
+                </button>
+                <div class="error" id="errorMsg"></div>
+            </div>
+        </div>
+
+        <!-- ===== SITE ===== -->
+        <div class="site-content" id="siteContent">
+
+            <!-- HEADER -->
+            <div class="header">
+                <div class="logo">
+                    <span class="logo-icon">🚀</span>
+                    <h1>Sasi Ra*e <span class="version">| v7.0</span></h1>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <div class="clock-container" id="clockContainer">
+                        <span class="clock-time" id="clockTime">00:00:00</span>
+                        <span class="clock-date" id="clockDate"><span class="day">Mon</span> • Jan 01</span>
+                    </div>
+                    <div class="badge"><span class="dot"></span>Live</div>
+                    <div class="audio-controls">
+                        <span class="audio-label">🔊</span>
+                        <input type="range" class="audio-volume" id="audioVolume" min="0" max="1" step="0.01" value="0.3" oninput="updateVolume(this.value)">
+                    </div>
+                    <button class="logout-btn" onclick="logout()">✕ Exit</button>
+                </div>
+            </div>
+
+            <!-- TABS -->
+            <div class="tabs-container" id="tabsContainer">
+                <div class="tab-item active" data-tab="0" onclick="switchTab(0)">
+                    <span class="tab-icon">🏠</span>
+                    <span>Home</span>
+                    <button class="tab-close" onclick="event.stopPropagation(); closeTab(0)">✕</button>
+                </div>
+                <button class="tab-add-btn" onclick="addTab()" title="Add new tab">+</button>
+            </div>
+
+            <!-- IFRAME -->
+            <div class="iframe-wrapper" id="iframeWrapper">
+                <div class="iframe-loader" id="iframeLoader">
+                    <div class="loader-ring"></div>
+                    <div class="loader-text">Loading <span>✦</span></div>
+                </div>
+                <div class="iframe-overlay" id="iframeOverlay"></div>
+                <iframe 
+                    id="mainIframe"
+                    src="https://deepseek.com"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    loading="eager"
+                    onload="document.getElementById('iframeLoader').classList.add('hidden'); onIframeLoad();"
+                ></iframe>
+            </div>
+
+            <!-- AUTO-LOCK OVERLAY -->
+            <div class="auto-lock-overlay" id="autoLockOverlay">
+                <div class="auto-lock-box">
+                    <span class="lock-icon-big">🔐</span>
+                    <h2>Session <span class="highlight">Locked</span></h2>
+                    <p>Your session was locked due to inactivity</p>
+                    <div class="lock-timer">Auto-lock in <span id="lockTimerDisplay">30</span>s</div>
+                    <input type="password" id="lockPasswordInput" placeholder="Enter password" autofocus>
+                    <button onclick="unlockSession()">Unlock 🔓</button>
+                    <div class="lock-error" id="lockError"></div>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="footer">
+                <div class="info">
+                    <span class="item">✨ Sasi Ra*e</span>
+                    <span class="divider">|</span>
+                    <span class="item">🔒 Protected</span>
+                    <span class="divider">|</span>
+                    <span class="item">📑 <span id="tabCount">1</span> tabs</span>
+                    <span class="divider">|</span>
+                    <span class="item">🎬 Video Mode</span>
+                    <span class="divider">|</span>
+                    <span class="item">⚡ v7.0</span>
+                </div>
+                <div>© 2026</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===== TELEGRAM POPUP ===== -->
+    <div class="telegram-popup" id="telegramPopup" onclick="openTelegram()">
+        <span class="popup-badge">NEW</span>
+        <span class="popup-icon">📱</span>
+        <div class="popup-content">
+            <div class="popup-title">Join <span class="highlight">Sasi Ra*e</span> on Telegram</div>
+            <div class="popup-desc">Click to join our channel 🚀</div>
+        </div>
+        <button class="popup-close" onclick="event.stopPropagation(); closePopup()">✕</button>
+    </div>
+
+    <!-- ===== TOASTS ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- =============================================
+    🧠 JAVASCRIPT - COMPLETE
+    ============================================= -->
+    <script>
+        // =============================================
+        // 📋 Toast System
+        // =============================================
+        function showToast(icon, title, desc, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <span class="toast-icon">${icon}</span>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-desc">${desc}</div>
+                </div>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('out');
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
+        // =============================================
+        // 🎛️ Volume Control
+        // =============================================
+        function updateVolume(val) {
+            audio.setVolume(parseFloat(val));
+        }
+
+        // =============================================
+        // 📱 Telegram Popup
+        // =============================================
+        function openTelegram() {
+            audio.click();
+            window.open('https://t.me/sasi_x_files', '_blank');
+            showToast('📱', 'Opening Telegram', 'Redirecting to channel...', 'info');
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('telegramPopup');
+            popup.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            popup.style.opacity = '0';
+            popup.style.transform = 'translateY(30px) scale(0.9)';
+            setTimeout(() => popup.style.display = 'none', 300);
+            audio.click();
+        }
+
+        setTimeout(() => {
+            const popup = document.getElementById('telegramPopup');
+            popup.style.display = 'flex';
+            popup.style.animation = 'popupSlide 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards';
+        }, 2000);
+
+        // =============================================
+        // 🕐 CLOCK & DATE
+        // =============================================
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const mins = String(now.getMinutes()).padStart(2, '0');
+            const secs = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clockTime').textContent = `${hours}:${mins}:${secs}`;
+            
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const day = days[now.getDay()];
+            const month = months[now.getMonth()];
+            const date = String(now.getDate()).padStart(2, '0');
+            document.getElementById('clockDate').innerHTML = `<span class="day">${day}</span> • ${month} ${date}`;
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // =============================================
+        // 📑 MULTI-SITE TABS
+        // =============================================
+        let tabs = [{ url: SITE_URL, title: 'Home' }];
+        let activeTab = 0;
+        let tabIdCounter = 1;
+
+        function renderTabs() {
+            const container = document.getElementById('tabsContainer');
+            const addBtn = container.querySelector('.tab-add-btn');
+            container.innerHTML = '';
+            
+            tabs.forEach((tab, index) => {
+                const div = document.createElement('div');
+                div.className = `tab-item${index === activeTab ? ' active' : ''}`;
+                div.setAttribute('data-tab', index);
+                div.innerHTML = `
+                    <span class="tab-icon">${index === 0 ? '🏠' : '📄'}</span>
+                    <span>${tab.title}</span>
+                    ${index > 0 ? `<button class="tab-close" onclick="event.stopPropagation(); closeTab(${index})">✕</button>` : ''}
+                `;
+                div.onclick = () => switchTab(index);
+                container.appendChild(div);
+            });
+            
+            container.appendChild(addBtn);
+            updateTabCount();
+        }
+
+        function switchTab(index) {
+            if (index === activeTab) return;
+            if (index >= tabs.length) return;
+            
+            activeTab = index;
+            const url = tabs[index].url;
+            document.getElementById('mainIframe').src = url;
+            document.getElementById('iframeLoader').classList.remove('hidden');
+            renderTabs();
+            showToast('📑', 'Switched Tab', tabs[index].title, 'info');
+            audio.click();
+        }
+
+        function addTab() {
+            const newUrl = prompt('Enter URL for new tab (include https://):', 'https://google.com');
+            if (!newUrl) return;
+            
+            if (!newUrl.startsWith('http://') && !newUrl.startsWith('https://')) {
+                showToast('⚠️', 'Invalid URL', 'Please include http:// or https://', 'error');
+                return;
+            }
+            
+            const title = newUrl.replace(/^https?:\/\//, '').split('/')[0] || 'New Tab';
+            tabs.push({ url: newUrl, title: title });
+            const newIndex = tabs.length - 1;
+            switchTab(newIndex);
+            showToast('➕', 'Tab Added', title, 'success');
+            audio.click();
+        }
+
+        function closeTab(index) {
+            if (tabs.length <= 1) {
+                showToast('⚠️', 'Cannot Close', 'You need at least one tab', 'warning');
+                return;
+            }
+            
+            const title = tabs[index].title;
+            tabs.splice(index, 1);
+            
+            if (activeTab >= tabs.length) activeTab = tabs.length - 1;
+            if (activeTab === index && index > 0) activeTab = index - 1;
+            
+            renderTabs();
+            const newUrl = tabs[activeTab].url;
+            document.getElementById('mainIframe').src = newUrl;
+            document.getElementById('iframeLoader').classList.remove('hidden');
+            showToast('🗑️', 'Tab Closed', title, 'info');
+            audio.click();
+        }
+
+        function updateTabCount() {
+            document.getElementById('tabCount').textContent = tabs.length;
+        }
+
+        renderTabs();
+
+        // =============================================
+        // 🛡️ AUTO-LOCK SYSTEM
+        // =============================================
+        let autoLockTimer = null;
+        let lockCountdown = null;
+        let lockTimeout = null;
+        const AUTO_LOCK_TIME = 3 * 60 * 1000;
+        const LOCK_WARNING_TIME = 30;
+
+        function resetAutoLockTimer() {
+            clearTimeout(autoLockTimer);
+            clearTimeout(lockCountdown);
+            clearTimeout(lockTimeout);
+            
+            document.getElementById('autoLockOverlay').classList.remove('show');
+            document.getElementById('lockError').textContent = '';
+            document.getElementById('lockPasswordInput').value = '';
+            
+            autoLockTimer = setTimeout(() => {
+                showLockWarning();
+            }, AUTO_LOCK_TIME - LOCK_WARNING_TIME * 1000);
+        }
+
+        function showLockWarning() {
+            showToast('⏳', 'Auto-Lock Warning', `Session will lock in ${LOCK_WARNING_TIME}s`, 'warning');
+            
+            let seconds = LOCK_WARNING_TIME;
+            document.getElementById('lockTimerDisplay').textContent = seconds;
+            
+            lockCountdown = setInterval(() => {
+                seconds--;
+                document.getElementById('lockTimerDisplay').textContent = seconds;
+                if (seconds <= 0) {
+                    clearInterval(lockCountdown);
+                    lockSession();
+                }
+            }, 1000);
+        }
+
+        function lockSession() {
+            clearInterval(lockCountdown);
+            document.getElementById('autoLockOverlay').classList.add('show');
+            document.getElementById('lockPasswordInput').value = '';
+            document.getElementById('lockPasswordInput').focus();
+            document.getElementById('lockError').textContent = '';
+            showToast('🔒', 'Session Locked', 'Enter your password to unlock', 'info');
+            audio.logout();
+        }
+
+        function unlockSession() {
+            const entered = document.getElementById('lockPasswordInput').value.trim();
+            if (VALID_PASSWORDS.includes(entered)) {
+                document.getElementById('autoLockOverlay').classList.remove('show');
+                document.getElementById('lockPasswordInput').value = '';
+                document.getElementById('lockError').textContent = '';
+                showToast('🔓', 'Session Unlocked', 'Welcome back!', 'success');
+                audio.playAhh();
+                resetAutoLockTimer();
+            } else {
+                document.getElementById('lockError').textContent = '❌ Invalid password. Try again.';
+                document.getElementById('lockPasswordInput').value = '';
+                document.getElementById('lockPasswordInput').focus();
+                audio.error();
+            }
+        }
+
+        document.getElementById('lockPasswordInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') unlockSession();
+        });
+
+        ['click', 'keydown', 'scroll', 'touchstart', 'mousemove'].forEach(event => {
+            document.addEventListener(event, resetAutoLockTimer);
+        });
+
+        setTimeout(resetAutoLockTimer, 3000);
+
+        // =============================================
+        // 🔐 LOGIN
+        // =============================================
+        const loginOverlay = document.getElementById('loginOverlay');
+        const passwordInput = document.getElementById('passwordInput');
+        const errorMsg = document.getElementById('errorMsg');
+        const mainIframe = document.getElementById('mainIframe');
+        const iframeWrapper = document.getElementById('iframeWrapper');
+        const iframeLoader = document.getElementById('iframeLoader');
+        const iframeOverlay = document.getElementById('iframeOverlay');
+        const strengthBar = document.getElementById('strengthBar');
+        const strengthFill = document.getElementById('strengthFill');
+
+        function setIframeUrl(url) {
+            mainIframe.src = url;
+        }
+
+        // =============================================
+        // 🎬 ULTIMATE VIDEO SITE FIX - NO NEW TABS!
+        // =============================================
+        function blockAllPopupsAndNewTabs() {
+            const iframe = document.getElementById('mainIframe');
+            if (!iframe) return;
+            
+            try {
+                const iframeWindow = iframe.contentWindow;
+                const iframeDoc = iframe.contentDocument || (iframeWindow && iframeWindow.document);
+                
+                if (!iframeWindow || !iframeDoc) {
+                    iframe.removeAttribute('sandbox');
+                    return;
+                }
+
+                // =============================================
+                // METHOD 1: Block window.open() completely
+                // =============================================
+                iframeWindow.open = function(url, name, features) {
+                    if (url && !url.startsWith('javascript:') && !url.startsWith('#')) {
+                        console.log('🚫 Blocked window.open():', url);
+                        iframe.src = url;
+                        showToast('🎬', 'Video Loaded', 'Playing in current tab', 'success');
+                        
+                        try {
+                            const title = url.replace(/^https?:\/\//, '').split('/')[0] || 'Video';
+                            if (window.tabs && window.activeTab !== undefined) {
+                                tabs[activeTab].title = title;
+                                renderTabs();
+                            }
+                        } catch(e) {}
+                    }
+                    return null;
+                };
+
+                // =============================================
+                // METHOD 2: Block target="_blank" via event listener
+                // =============================================
+                const originalAddEventListener = iframeWindow.addEventListener;
+                iframeWindow.addEventListener = function(type, listener, options) {
+                    if (type === 'click' || type === 'mousedown' || type === 'touchstart') {
+                        const wrappedListener = function(e) {
+                            let target = e.target;
+                            while (target && target.tagName !== 'A') {
+                                target = target.parentElement;
+                            }
+                            
+                            if (target && target.tagName === 'A') {
+                                const href = target.getAttribute('href') || target.href;
+                                if (href && !href.startsWith('javascript:') && !href.startsWith('#') && !href.startsWith('mailto:')) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    e.stopImmediatePropagation();
+                                    
+                                    iframe.src = href;
+                                    showToast('🎬', 'Opening Video', 'Playing in current tab', 'info');
+                                    
+                                    try {
+                                        const title = href.replace(/^https?:\/\//, '').split('/')[0] || 'Video';
+                                        if (window.tabs && window.activeTab !== undefined) {
+                                            tabs[activeTab].title = title;
+                                            renderTabs();
+                                        }
+                                    } catch(e) {}
+                                    return false;
+                                }
+                            }
+                            
+                            if (listener) {
+                                return listener.apply(this, arguments);
+                            }
+                        };
+                        return originalAddEventListener.call(iframeWindow, type, wrappedListener, options);
+                    }
+                    return originalAddEventListener.call(iframeWindow, type, listener, options);
+                };
+
+                // =============================================
+                // METHOD 3: Fix all existing links
+                // =============================================
+                function fixLinks() {
+                    try {
+                        const links = iframeDoc.querySelectorAll('a:not([data-video-fixed])');
+                        links.forEach(link => {
+                            link.setAttribute('data-video-fixed', 'true');
+                            link.removeAttribute('target');
+                            link.removeAttribute('rel');
+                            link.removeAttribute('referrerpolicy');
+                            link.setAttribute('target', '_self');
+                            
+                            const newLink = link.cloneNode(true);
+                            link.parentNode.replaceChild(newLink, link);
+                            
+                            newLink.addEventListener('click', function(e) {
+                                const href = this.getAttribute('href') || this.href;
+                                
+                                if (href && !href.startsWith('javascript:') && !href.startsWith('#') && !href.startsWith('mailto:')) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    e.stopImmediatePropagation();
+                                    
+                                    iframe.src = href;
+                                    showToast('🎬', 'Opening Video', 'Playing in current tab', 'info');
+                                    
+                                    try {
+                                        const title = href.replace(/^https?:\/\//, '').split('/')[0] || 'Video';
+                                        if (window.tabs && window.activeTab !== undefined) {
+                                            tabs[activeTab].title = title;
+                                            renderTabs();
+                                        }
+                                    } catch(e) {}
+                                    return false;
+                                }
+                            }, true);
+                        });
+                    } catch(e) {
+                        console.log('Fix links error:', e);
+                    }
+                }
+
+                // =============================================
+                // METHOD 4: MutationObserver for new links
+                // =============================================
+                if (!iframeWindow.__observerAttached) {
+                    try {
+                        const observer = new MutationObserver(() => {
+                            fixLinks();
+                        });
+                        
+                        const target = iframeDoc.body || iframeDoc.documentElement;
+                        if (target) {
+                            observer.observe(target, {
+                                childList: true,
+                                subtree: true,
+                                attributes: false
+                            });
+                            iframeWindow.__observerAttached = true;
+                        }
+                    } catch(e) {
+                        console.log('Observer error:', e);
+                    }
+                }
+
+                // =============================================
+                // METHOD 5: Block context menu (right-click)
+                // =============================================
+                try {
+                    iframeDoc.addEventListener('contextmenu', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return false;
+                    }, true);
+                } catch(e) {}
+
+                // =============================================
+                // METHOD 6: Block drag events
+                // =============================================
+                try {
+                    iframeDoc.addEventListener('dragstart', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return false;
+                    }, true);
+                } catch(e) {}
+
+                // =============================================
+                // Execute fixes with delays
+                // =============================================
+                const fixDelays = [100, 300, 600, 1000, 2000, 3000, 5000];
+                fixDelays.forEach(delay => {
+                    setTimeout(fixLinks, delay);
+                });
+
+                // =============================================
+                // Remove sandbox (critical for video sites)
+                // =============================================
+                iframe.removeAttribute('sandbox');
+
+                console.log('🎬 Video Site Fix Active - NO NEW TABS!');
+
+            } catch(e) {
+                console.log('Cross-origin restriction - using fallback:', e);
+                
+                // =============================================
+                // FALLBACK: Remove sandbox and reload
+                // =============================================
+                iframe.removeAttribute('sandbox');
+                const currentSrc = iframe.src;
+                iframe.src = 'about:blank';
+                setTimeout(() => {
+                    iframe.src = currentSrc;
+                }, 100);
+            }
+        }
+
+        // =============================================
+        // 🔄 AUTO-RUN on iframe load
+        // =============================================
+        function onIframeLoad() {
+            console.log('📺 Iframe loaded - applying video fix...');
+            setTimeout(blockAllPopupsAndNewTabs, 200);
+            setTimeout(blockAllPopupsAndNewTabs, 500);
+            setTimeout(blockAllPopupsAndNewTabs, 1000);
+            setTimeout(blockAllPopupsAndNewTabs, 2000);
+            iframeLoader.classList.add('hidden');
+            resetAutoLockTimer();
+        }
+
+        // =============================================
+        // 🚀 Also run on page load
+        // =============================================
+        window.addEventListener('load', function() {
+            setTimeout(blockAllPopupsAndNewTabs, 500);
+            setTimeout(blockAllPopupsAndNewTabs, 1000);
+        });
+
+        // =============================================
+        // 🔄 Run every 5 seconds (for dynamically loaded content)
+        // =============================================
+        setInterval(blockAllPopupsAndNewTabs, 5000);
+
+        // =============================================
+        // ⌨️ Password Strength
+        // =============================================
+        let lastTypeTime = 0;
+        passwordInput.addEventListener('input', function() {
+            const now = Date.now();
+            if (now - lastTypeTime > 80) {
+                audio.type();
+                lastTypeTime = now;
+            }
+            const val = this.value;
+            if (val.length > 0) {
+                strengthBar.classList.add('active');
+                const strength = Math.min(val.length / 10 * 100, 100);
+                strengthFill.style.width = strength + '%';
+                if (strength < 30) strengthFill.style.background = '#ff0040';
+                else if (strength < 60) strengthFill.style.background = '#ffd700';
+                else strengthFill.style.background = '#00ff88';
+            } else {
+                strengthBar.classList.remove('active');
+                strengthFill.style.width = '0%';
+            }
+        });
+
+        // =============================================
+        // 🔐 Check Password
+        // =============================================
+        function checkPassword() {
+            const entered = passwordInput.value.trim();
+
+            if (VALID_PASSWORDS.includes(entered)) {
+                audio.playAhh();
+                showToast('🎉', 'Access Granted!', 'Welcome to Sasi Ra*e!', 'success');
+                
+                loginOverlay.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                loginOverlay.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    loginOverlay.classList.add('hidden');
+                    loginOverlay.style.transform = '';
+                    resetAutoLockTimer();
+                }, 200);
+                errorMsg.textContent = '';
+                passwordInput.value = '';
+                strengthBar.classList.remove('active');
+                strengthFill.style.width = '0%';
+            } else {
+                audio.error();
+                showToast('❌', 'Access Denied', 'Invalid password. Try again.', 'error');
+                
+                errorMsg.textContent = '❌ Invalid password. Please try again.';
+                passwordInput.value = '';
+                passwordInput.focus();
+                strengthBar.classList.remove('active');
+                strengthFill.style.width = '0%';
+                const box = document.querySelector('.login-box');
+                box.style.animation = 'none';
+                setTimeout(() => {
+                    box.style.animation = 'errorNeon 0.4s ease';
+                }, 10);
+                setTimeout(() => {
+                    box.style.animation = '';
+                }, 500);
+            }
+        }
+
+        // =============================================
+        // ⌨️ Enter Key
+        // =============================================
+        passwordInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                audio.click();
+                checkPassword();
+            }
+        });
+
+        // =============================================
+        // 🚪 Logout
+        // =============================================
+        function logout() {
+            audio.logout();
+            showToast('🚪', 'Logged Out', 'See you next time!', 'info');
+            
+            clearTimeout(autoLockTimer);
+            clearInterval(lockCountdown);
+            clearTimeout(lockTimeout);
+            document.getElementById('autoLockOverlay').classList.remove('show');
+            
+            loginOverlay.classList.remove('hidden');
+            loginOverlay.style.transform = 'scale(1)';
+            passwordInput.value = '';
+            passwordInput.focus();
+            errorMsg.textContent = '';
+            strengthBar.classList.remove('active');
+            strengthFill.style.width = '0%';
+            document.querySelector('.login-box').style.animation = 'loginNeon 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards';
+            iframeLoader.classList.remove('hidden');
+            setTimeout(() => {
+                iframeLoader.classList.add('hidden');
+            }, 1500);
+        }
+
+        // =============================================
+        // 🚫 CONTEXT MENU BLOCK
+        // =============================================
+        document.addEventListener('contextmenu', function(e) {
+            if (iframeWrapper.contains(e.target)) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        }, true);
+
+        iframeWrapper.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }, true);
+
+        iframeOverlay.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }, true);
+
+        try {
+            mainIframe.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }, true);
+        } catch(e) {}
+
+        iframeWrapper.addEventListener('mousedown', function(e) {
+            if (e.button === 2) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        ['selectstart', 'copy', 'cut', 'paste'].forEach(eventName => {
+            document.addEventListener(eventName, function(e) {
+                if (iframeWrapper.contains(e.target)) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
+            }, true);
+        });
+
+        // =============================================
+        // 🚀 INIT
+        // =============================================
+        async function init() {
+            await loadLink();
+            await loadPasswords();
+            
+            tabs[0].url = SITE_URL;
+            setIframeUrl(SITE_URL);
+            
+            setTimeout(() => passwordInput.focus(), 500);
+            
+            console.log('🚀 Sasi Ra*e v7.0 - Video Edition');
+            console.log('🌐 URL:', SITE_URL);
+            console.log('🔑 Passwords:', VALID_PASSWORDS);
+            console.log('🕐 Clock Active');
+            console.log('📑 Multi-Site Tabs Active');
+            console.log('🛡️ Auto-Lock Active');
+            console.log('🎬 Video Mode: NO NEW TABS!');
+        }
+
+        init();
+
+        // =============================================
+        // ⏱️ Iframe loader timeout
+        // =============================================
+        setTimeout(function() {
+            if (!iframeLoader.classList.contains('hidden')) {
+                iframeLoader.innerHTML = `
+                    <div class="loader-ring"></div>
+                    <div class="loader-text">Taking longer... <span>⟳</span></div>
+                `;
+            }
+        }, 8000);
+
+        // =============================================
+        // 💪 Iframe load error fallback
+        // =============================================
+        mainIframe.addEventListener('error', function() {
+            iframeLoader.innerHTML = `
+                <div style="color:#ff0040; font-size:20px; margin-bottom:8px;">⚠️</div>
+                <div class="loader-text" style="color:#666;">Failed to load <span style="color:#ff0040;">${SITE_URL}</span></div>
+                <div style="color:#444; font-size:11px; margin-top:4px;">Check your connection or URL</div>
+            `;
+        });
+    </script>
+
+</body>
+</html>
